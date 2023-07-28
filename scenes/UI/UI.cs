@@ -32,17 +32,17 @@ public partial class UI : CanvasLayer {
 	}
 	
 	private void UpdateLaserText() {
-		_laserLabel.Text = Math.Min(99, Globals.GetLaserAmmo()).ToString("D2");
-		UpdateColors(Globals.GetLaserAmmo(), _laserLabel, _laserIcon);
+		_laserLabel.Text = Math.Min(99, Globals.Get().LaserAmmo).ToString("D2");
+		UpdateColors(Globals.Get().LaserAmmo, _laserLabel, _laserIcon);
 	}
 	
 	private void UpdateGrenadeText() {
-		_grenadeLabel.Text = Math.Min(99, Globals.GetGrenadeAmmo()).ToString("D2");
-		UpdateColors(Globals.GetGrenadeAmmo(), _grenadeLabel, _grenadeIcon);
+		_grenadeLabel.Text = Math.Min(99, Globals.Get().GrenadeAmmo).ToString("D2");
+		UpdateColors(Globals.Get().GrenadeAmmo, _grenadeLabel, _grenadeIcon);
 	}
 
 	private void UpdateHealth() {
-		_healthBar.Value = Globals.GetHealth();
+		_healthBar.Value = Globals.Get().Health;
 	}
 	
 	private void UpdateColors(int count, Label label, TextureRect icon) {

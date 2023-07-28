@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ch5i73378c5s2" path="res://scenes/houses/House.tscn" id="3_eu32f"]
 [ext_resource type="PackedScene" uid="uid://cwpuvroik3bad" path="res://scenes/objects/bed.tscn" id="4_bgcnp"]
 [ext_resource type="PackedScene" uid="uid://dnerhvfk4ligt" path="res://scenes/objects/Gate.tscn" id="6_mafna"]
-[ext_resource type="PackedScene" uid="uid://bqldloxvqnok" path="res://scenes/Enemies/drone/Drone.tscn" id="7_530o6"]
+[ext_resource type="PackedScene" uid="uid://kbx1ibw62a5g" path="res://scenes/Enemies/Bug/bug.tscn" id="7_qqvth"]
 [ext_resource type="PackedScene" uid="uid://txvviqywe2yd" path="res://scenes/objects/LightFanAnimation.tscn" id="8_f75no"]
 [ext_resource type="PackedScene" uid="uid://32utaafc6ksu" path="res://scenes/Player/player.tscn" id="9_gnut1"]
 [ext_resource type="PackedScene" uid="uid://bggjgbs336s2n" path="res://scenes/objects/Box.tscn" id="10_ilttc"]
@@ -51,17 +51,12 @@ position = Vector2(14473, 665)
 
 [node name="Enemies" type="Node2D" parent="." index="6"]
 
-[node name="Drone" parent="Enemies" index="0" instance=ExtResource("7_530o6")]
-position = Vector2(550, 363)
+[node name="Bug" parent="Enemies" index="0" instance=ExtResource("7_qqvth")]
+position = Vector2(13794, 2609)
 
-[node name="Drone2" parent="Enemies" index="1" instance=ExtResource("7_530o6")]
-position = Vector2(385, 795)
-
-[node name="Drone3" parent="Enemies" index="2" instance=ExtResource("7_530o6")]
-position = Vector2(392, 1314)
-
-[node name="Drone4" parent="Enemies" index="3" instance=ExtResource("7_530o6")]
-position = Vector2(506, 1882)
+[node name="Scout" parent="Enemies" index="1" instance=ExtResource("12_rl4mi")]
+position = Vector2(13820, 6694)
+metadata/_edit_lock_ = true
 
 [node name="LightFanAnimation" parent="." index="7" instance=ExtResource("8_f75no")]
 position = Vector2(1613, 4768)
@@ -90,10 +85,6 @@ position = Vector2(12490, 6192)
 rotation = 1.57079
 
 [node name="Player" parent="." index="10" instance=ExtResource("9_gnut1")]
-position = Vector2(15026, 1159)
+position = Vector2(15031, 1354)
 rotation = 3.14159
 MaxSpeed = 1000.0
-
-[node name="Scout" parent="." index="14" instance=ExtResource("12_rl4mi")]
-position = Vector2(13820, 6694)
-metadata/_edit_lock_ = true

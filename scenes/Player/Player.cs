@@ -39,9 +39,9 @@ public partial class Player : CharacterBody2D {
 
 		LookAt(GetGlobalMousePosition());
 		
-		if (Input.IsActionPressed("primary action") && _canLaser && Globals.GetLaserAmmo() > 0)
+		if (Input.IsActionPressed("primary action") && _canLaser && Globals.Get().LaserAmmo > 0)
 			FireLaser();
-		else if (Input.IsActionPressed("secondary action") && _canGrenade && Globals.GetGrenadeAmmo() > 0)
+		else if (Input.IsActionPressed("secondary action") && _canGrenade && Globals.Get().GrenadeAmmo > 0)
 			FireGrenade();
 	}
 

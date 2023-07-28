@@ -1,12 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://due76awe46i35"]
+[gd_scene load_steps=10 format=3 uid="uid://due76awe46i35"]
 
 [ext_resource type="PackedScene" uid="uid://cnat0kdbppykv" path="res://scenes/Enemies/Enemy.tscn" id="1_jfs7i"]
 [ext_resource type="Script" path="res://scenes/Enemies/Scout/Scout.cs" id="1_kjvnu"]
+[ext_resource type="Shader" path="res://scenes/Enemies/Enemy.gdshader" id="3_np4w1"]
 [ext_resource type="Texture2D" uid="uid://palx1m4uak8d" path="res://graphics/enemies/scout.png" id="3_plsgl"]
 [ext_resource type="Texture2D" uid="uid://chni5vhadpxel" path="res://graphics/lights/textures/circle.png" id="4_ylqh3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ltoh5"]
 radius = 1599.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7i7p"]
+shader = ExtResource("3_np4w1")
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/progress = 0.0
 
 [sub_resource type="Animation" id="Animation_26ff7"]
 resource_name = "LightingAnimation"
@@ -116,8 +122,6 @@ _data = {
 
 [node name="Scout" groups=["Scouts"] instance=ExtResource("1_jfs7i")]
 scale = Vector2(1.5, 1.5)
-collision_layer = 2
-collision_mask = 15
 script = ExtResource("1_kjvnu")
 
 [node name="CollisionShape2D" parent="AttackArea" index="0"]
@@ -128,6 +132,7 @@ polygon = PackedVector2Array(-52, -26, -53, -32, -53, -39, -56, -58, -49, -72, -
 metadata/_edit_lock_ = true
 
 [node name="EnemyImage" parent="." index="2"]
+material = SubResource("ShaderMaterial_g7i7p")
 position = Vector2(4, 30)
 rotation = 1.57079
 texture = ExtResource("3_plsgl")

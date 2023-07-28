@@ -4,17 +4,18 @@ using System;
 public partial class Enemy : CharacterBody2D
 {
 	protected Player _target = null;
-	private const float MaxSpeed = 700.0f;
-	private const float Acceleration = 1400.0f;
-	private const float DesiredRange = 750;
-	private const float RangeThreshold = 100;
-	private const float TurnSpeed = 15;
+	
+	protected float MaxSpeed = 700.0f;
+	protected float Acceleration = 1400.0f;
+	protected float DesiredRange = 750;
+	protected float RangeThreshold = 100;
+	protected float TurnSpeed = 15;
 	
 	private double _curSpeed = 0.0f;
 	
 	protected int _health = 10;
 
-	public override void _PhysicsProcess(double delta)
+	public override void _Process(double delta)
 	{
 		if (_target == null) return;
 
@@ -42,12 +43,23 @@ public partial class Enemy : CharacterBody2D
 	}
 
 	public void Hit(int damage) {
-		var ap = GetNode<AnimationPlayer>("AnimationPlayer");
-		if (!ap.IsPlaying())
-			ap.Play("hit_animation");
-		
+		var t = CreateTween();
+		t.SetLoops(5);
+		t.TweenMethod(Callable.From<float>(SetShaderProgress), 0.0f, 0.5f, 0.2);
+		t.Finished += ResetShaderProgress;
 		_health -= damage;
 		if (_health <= 0)
 			QueueFree();
+	}
+
+	protected virtual void SetShaderProgress(float val) {
+		var image = GetNode<Sprite2D>("EnemyImage");
+		var shader = image.Material as ShaderMaterial;
+		shader.SetShaderParameter("progress", val);
+	}
+
+	protected virtual void ResetShaderProgress() {
+		var shader = GetNode<Sprite2D>("EnemyImage").Material as ShaderMaterial;
+		shader.SetShaderParameter("progress", 0);
 	}
 }

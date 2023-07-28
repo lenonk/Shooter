@@ -29,7 +29,4 @@ public partial class Globals : Node {
 	}
 
 	public static Globals Get() => _instance;
-	public static int GetLaserAmmo() => _instance.LaserAmmo;
-	public static int GetGrenadeAmmo() => _instance.GrenadeAmmo;
-	public static int GetHealth() => _instance.Health;
 }

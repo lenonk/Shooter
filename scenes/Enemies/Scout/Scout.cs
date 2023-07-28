@@ -8,7 +8,7 @@ public partial class Scout : Enemy {
 	private int _nextLaser = 0;
 
 	public override void _Ready() {
-		_health = 35;
+		_health = 15;
 	}
 	
 	public override void _Process(double delta) {
