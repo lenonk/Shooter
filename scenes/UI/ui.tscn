@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://6sr647lrpq3w"]
+
+[ext_resource type="Texture2D" uid="uid://bo37tus25644t" path="res://graphics/ui/bullet.png" id="1_4yqq5"]
+[ext_resource type="Theme" uid="uid://biqsued8tbag7" path="res://scenes/UI/main_theme.tres" id="1_ehmpq"]
+[ext_resource type="Script" path="res://scenes/UI/UI.cs" id="1_vhvc8"]
+[ext_resource type="Texture2D" uid="uid://bpsek6pvhdeos" path="res://graphics/ui/grenade.png" id="2_hy4ui"]
+[ext_resource type="Texture2D" uid="uid://bgjteo4014h3k" path="res://graphics/ui/progress_bar/bg.png" id="4_o86ou"]
+[ext_resource type="Texture2D" uid="uid://cqn47gqa1yfjx" path="res://graphics/ui/progress_bar/over.png" id="5_bm8au"]
+[ext_resource type="Texture2D" uid="uid://oexydyfy81lr" path="res://graphics/ui/progress_bar/progress.png" id="6_4rasb"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_vhvc8")
+
+[node name="AmmoContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(100, 80)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -78.0
+offset_right = 70.0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="AmmoContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+columns = 2
+
+[node name="LaserLabel" type="Label" parent="AmmoContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_ehmpq")
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GrenadeLabel" type="Label" parent="AmmoContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("1_ehmpq")
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BulletTexture" type="TextureRect" parent="AmmoContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_4yqq5")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="AmmoContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+
+[node name="GrenadeTexture" type="TextureRect" parent="AmmoContainer/GridContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_hy4ui")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -40.0
+offset_right = 150.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer"]
+layout_mode = 2
+texture_under = ExtResource("4_o86ou")
+texture_over = ExtResource("5_bm8au")
+texture_progress = ExtResource("6_4rasb")

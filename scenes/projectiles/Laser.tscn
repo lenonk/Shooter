@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7uwxp62ihlql"]
+
+[ext_resource type="Texture2D" uid="uid://she5q8vybpmx" path="res://graphics/projectiles/blue.png" id="1_3mb74"]
+[ext_resource type="Script" path="res://scenes/projectiles/Laser.cs" id="1_bqcnj"]
+[ext_resource type="Texture2D" uid="uid://chni5vhadpxel" path="res://graphics/lights/textures/circle.png" id="2_502c4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uvkvw"]
+height = 92.0
+
+[node name="Laser" type="Area2D"]
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_bqcnj")
+Speed = 2000
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0, 0.886275, 0.886275, 0.745098)
+energy = 5.39
+texture = ExtResource("2_502c4")
+texture_scale = 0.25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_uvkvw")
+
+[node name="LaserImage" type="Sprite2D" parent="."]
+position = Vector2(-1, 36)
+texture = ExtResource("1_3mb74")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="OnTimeout"]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://bggjgbs336s2n"]
+
+[ext_resource type="PackedScene" uid="uid://c4kq8m7cq81cm" path="res://scenes/objects/ItemContainer.tscn" id="1_4w1p7"]
+[ext_resource type="Script" path="res://scenes/objects/Box.cs" id="2_vapnx"]
+[ext_resource type="Texture2D" uid="uid://ctsj1j42vp2kc" path="res://graphics/objects/box/base.png" id="3_gs1om"]
+[ext_resource type="Texture2D" uid="uid://dlrmtk3wcvysk" path="res://graphics/objects/box/lid.png" id="4_evc7m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5636"]
+size = Vector2(404, 180)
+
+[node name="Box" instance=ExtResource("1_4w1p7")]
+script = ExtResource("2_vapnx")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_s5636")
+
+[node name="BaseSprite" parent="." index="1"]
+texture = ExtResource("3_gs1om")
+
+[node name="LidSprite" parent="." index="2"]
+texture = ExtResource("4_evc7m")
+
+[node name="Marker2D" type="Marker2D" parent="SpawnPositions" index="0"]
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnPositions" index="1"]
+position = Vector2(137, 36)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnPositions" index="2"]
+position = Vector2(54, 30)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnPositions" index="3"]
+position = Vector2(54, 30)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnPositions" index="4"]
+position = Vector2(-82, 30)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnPositions" index="5"]
+position = Vector2(-161, 31)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnPositions" index="6"]
+position = Vector2(137, -46)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnPositions" index="7"]
+position = Vector2(48, -49)
+
+[node name="Marker2D8" type="Marker2D" parent="SpawnPositions" index="8"]
+position = Vector2(-86, -49)
+
+[node name="Marker2D9" type="Marker2D" parent="SpawnPositions" index="9"]
+position = Vector2(-158, -56)

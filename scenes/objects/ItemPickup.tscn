@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuuoylac3iwpg"]
+
+[ext_resource type="Script" path="res://scenes/objects/ItemPickup.cs" id="1_m5cti"]
+[ext_resource type="Texture2D" uid="uid://f26250f31vuv" path="res://graphics/items/orb2.png" id="2_p3qiy"]
+[ext_resource type="Texture2D" uid="uid://chni5vhadpxel" path="res://graphics/lights/textures/circle.png" id="2_u7mw7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1is77"]
+radius = 58.5491
+
+[node name="ItemPickup" type="Area2D"]
+script = ExtResource("1_m5cti")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1is77")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+texture = ExtResource("2_u7mw7")
+texture_scale = 0.4
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p3qiy")
+
+[connection signal="body_entered" from="." to="." method="OnActivate"]
