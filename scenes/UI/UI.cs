@@ -41,11 +41,8 @@ public partial class UI : CanvasLayer {
 		UpdateColors(Globals.Get().GrenadeAmmo, _grenadeLabel, _grenadeIcon);
 	}
 
-	private void UpdateHealth() {
-		_healthBar.Value = Globals.Get().Health;
-	}
-	
-	private void UpdateColors(int count, Label label, TextureRect icon) {
+	private void UpdateHealth() => _healthBar.Value = Globals.Get().Health;
+
+	private void UpdateColors(int count, Label label, TextureRect icon) => 
 		icon.Modulate = label.Modulate = (count > 0) ? _green : _red;
-	}
 }

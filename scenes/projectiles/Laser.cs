@@ -19,7 +19,5 @@ public partial class Laser : Area2D {
 		QueueFree();
 	}
 
-	private void OnTimeout() {
-		QueueFree();
-	}
+	private void OnTimeout() => QueueFree();
 }

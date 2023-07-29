@@ -69,22 +69,14 @@ public partial class Player : CharacterBody2D {
 		Vector2 dir = (GetGlobalMousePosition() - Position).Normalized();
 		EmitSignal(SignalName.PlayerGrenade, selectedGrenade.GlobalPosition, dir, CurSpeed);
 	}
-	
-	private void _on_laser_timer_timeout() {
-		_canLaser = true;
-	}
-	
-	private void _on_grenade_timer_timeout() {
-		_canGrenade = true;
-	}
 
-	public Camera2D GetCamera() {
-		return GetNode<Camera2D>("Camera2D");
-	}
+	private void _on_laser_timer_timeout() => _canLaser = true;
 
-	public void Hit(int damage) {
-		Globals.Get().Health -= damage;
-	}
+	private void _on_grenade_timer_timeout() => _canGrenade = true;
+
+	public Camera2D GetCamera() => GetNode<Camera2D>("Camera2D");
+
+	public void Hit(int damage) => Globals.Get().Health -= damage;
 
 	public void Immobilize() {
 		_immobilized = true;
