@@ -22,8 +22,7 @@ public partial class ParentLevel : Node2D {
 	}
 
 	private void OnPlayerLaser(Vector2 pos, Vector2 dir) {
-		Laser laser = _laser.Instantiate() as Laser;
-		if (laser == null) return;
+		if (_laser.Instantiate() is not Laser laser) return;
 		laser.Position = pos;
 		laser.RotationDegrees = Mathf.RadToDeg(dir.Angle()) + 90;
 		laser.direction = dir;
@@ -31,16 +30,14 @@ public partial class ParentLevel : Node2D {
 	}
 	
 	private void OnPlayerGrenade(Vector2 pos, Vector2 dir, float speed) {
-		Grenade grenade = _grenade.Instantiate() as Grenade;
-		if (grenade == null) return;
+		if (_grenade.Instantiate() is not Grenade grenade) return;
 		grenade.Position = pos;
 		grenade.LinearVelocity = dir * (grenade.Speed + speed);
 		GetNode<Node2D>("Projectiles").AddChild(grenade);
 	}
 
 	private void OnSpawnStatItem(Vector2 pos, Vector2 dir) {
-		ItemPickup item = _itemPickup.Instantiate() as ItemPickup;
-		if (item == null) return;
+		if (_itemPickup.Instantiate() is not ItemPickup item) return;
 		item.Position = pos;
 		item.SpawnDirection = dir;
 		GetNode<Node2D>("Items").CallDeferred("add_child", item);
