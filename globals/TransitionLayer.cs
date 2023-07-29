@@ -21,8 +21,7 @@ public partial class TransitionLayer : CanvasLayer {
 		_player.PlayBackwards("fade_to_black");
 		await ToSignal(_player, "animation_finished");
 	}
-	
-	public static async void ChangeScene(string target) {
+
+	public static async void ChangeScene(string target) => 
 		await _layer._changeScene(target);
-	}
 }

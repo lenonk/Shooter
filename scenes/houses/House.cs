@@ -8,8 +8,6 @@ public partial class House : Area2D {
 		EmitSignal(SignalName.PlayerEnteredHouse);
 		GD.Print(body + " Fired House Enter");
 	}
-	
-	private void _on_body_exited(Node2D body) {
-		EmitSignal(SignalName.PlayerExitedHouse);
-	}
+
+	private void _on_body_exited(Node2D body) => EmitSignal(SignalName.PlayerExitedHouse);
 }
