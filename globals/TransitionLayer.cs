@@ -14,16 +14,15 @@ public partial class TransitionLayer : CanvasLayer {
 		_tree = GetTree();
 	}
 
-	private async Task WaitAnimation(String anim, bool playBackwards = false) {
-		if (playBackwards) _player.PlayBackwards(anim);
-		else _player.Play(anim);
-		
+	private async Task _changeScene(string target) {
+		_player.Play("fade_to_black");
+		await ToSignal(_player, "animation_finished");
+		_tree.ChangeSceneToFile(target);
+		_player.PlayBackwards("fade_to_black");
 		await ToSignal(_player, "animation_finished");
 	}
 	
-	public static async void ChangeScene(String target) {
-		await _layer.WaitAnimation("fade_to_black");
-		_tree.ChangeSceneToFile(target);
-		await _layer.WaitAnimation("fade_to_black", true);
+	public static async void ChangeScene(string target) {
+		await _layer._changeScene(target);
 	}
 }

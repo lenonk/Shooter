@@ -19,7 +19,7 @@ public partial class Bug : Enemy {
 
 	public override void _Process(double delta) {
 		base._Process(delta);
-		if (_target == null) return;
+		if (_target == null || _dead) return;
 
 		if (Math.Abs(Position.DistanceTo(_target.Position) - DesiredRange) < RangeThreshold) {
 			if (!_stopped) {
@@ -35,7 +35,12 @@ public partial class Bug : Enemy {
 		if (_canAttack && Math.Abs(Position.DistanceTo(_target.Position)) <= (DesiredRange + RangeThreshold)) 
 			Attack();
 	}
-	
+
+	public override void Hit(int damage) {
+		if (_health - damage <= 0)
+			GetNode<AnimatedSprite2D>("AnimatedEnemyImage").Stop();
+		base.Hit(damage);
+	}
 	private void Attack() {
 		_canAttack = false;
 		GetNode<AnimatedSprite2D>("AnimatedEnemyImage").Play("bite");

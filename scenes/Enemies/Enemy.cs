@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class Enemy : CharacterBody2D
 {
@@ -14,10 +15,11 @@ public partial class Enemy : CharacterBody2D
 	private double _curSpeed = 0.0f;
 	
 	protected int _health = 10;
+	protected bool _dead = false;
 
 	public override void _Process(double delta)
 	{
-		if (_target == null) return;
+		if (_target == null || _dead) return;
 
 		var dir = (_target.Position - Position).Normalized();
 
@@ -42,14 +44,28 @@ public partial class Enemy : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public void Hit(int damage) {
+	private async Task PlayDeathAnimation() {
+		var p = GetNode<GpuParticles2D>("Particles/HitParticles");
+		if (p == null) return;
+
+		p.Emitting = true;
+		var t = GetTree().CreateTimer(0.5);
+		await ToSignal(t, "timeout");
+	}
+	
+	public async virtual void Hit(int damage) {
 		var t = CreateTween();
 		t.SetLoops(5);
 		t.TweenMethod(Callable.From<float>(SetShaderProgress), 0.0f, 0.5f, 0.2);
 		t.Finished += ResetShaderProgress;
 		_health -= damage;
-		if (_health <= 0)
+		GetNode<GpuParticles2D>("Particles/HitParticles").Emitting = true;
+		
+		if (_health <= 0 && !_dead) {
+			_dead = true;
+			await PlayDeathAnimation();
 			QueueFree();
+		}
 	}
 
 	protected virtual void SetShaderProgress(float val) {

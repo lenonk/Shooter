@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://r7l18ononjf5"]
+
+[ext_resource type="PackedScene" uid="uid://cnat0kdbppykv" path="res://scenes/Enemies/Enemy.tscn" id="1_eb26w"]
+[ext_resource type="Texture2D" uid="uid://d0qrq2ild1kbq" path="res://graphics/enemies/drone.png" id="2_10wn5"]
+[ext_resource type="Script" path="res://scenes/Enemies/Drone/Drone.cs" id="2_qaeef"]
+[ext_resource type="Shader" path="res://scenes/Enemies/Enemy.gdshader" id="3_7fxr6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gbiw"]
+radius = 2488.11
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e44gn"]
+shader = ExtResource("3_7fxr6")
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/progress = 0.0
+
+[node name="Drone" groups=["Drones"] instance=ExtResource("1_eb26w")]
+script = ExtResource("2_qaeef")
+
+[node name="CollisionShape2D" parent="AttackArea" index="0"]
+shape = SubResource("CircleShape2D_7gbiw")
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PackedVector2Array(-152, -18, -148, 22, -70, 16, -58, 54, -28, 68, -2, 74, 22, 70, 52, 60, 70, 28, 72, 8, 154, 2, 138, -32, 56, -40, 30, -66, 8, -70, -24, -70, -50, -46, -60, -36, -144, -14)
+
+[node name="EnemyImage" parent="." index="2"]
+material = SubResource("ShaderMaterial_e44gn")
+texture = ExtResource("2_10wn5")
+
+[connection signal="body_entered" from="AttackArea" to="." method="OnAttackAreaEntered"]
