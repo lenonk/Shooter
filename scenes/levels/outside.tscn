@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b33ioqry4kule"]
+[gd_scene load_steps=16 format=3 uid="uid://b33ioqry4kule"]
 
 [ext_resource type="PackedScene" uid="uid://bsftvxjks1fs3" path="res://scenes/levels/level.tscn" id="1_mkegl"]
 [ext_resource type="PackedScene" uid="uid://dy425k14wbge3" path="res://scenes/objects/SteamVent.tscn" id="2_5bb4g"]
@@ -13,6 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://bggjgbs336s2n" path="res://scenes/objects/Box.tscn" id="10_ilttc"]
 [ext_resource type="PackedScene" uid="uid://b5bjcw5uslaad" path="res://scenes/objects/Toilet.tscn" id="11_qtbdl"]
 [ext_resource type="PackedScene" uid="uid://due76awe46i35" path="res://scenes/Enemies/Scout/Scout.tscn" id="12_rl4mi"]
+[ext_resource type="PackedScene" uid="uid://c6os83t26yogx" path="res://scenes/Enemies/Car/Car.tscn" id="14_la12e"]
+
+[sub_resource type="Curve2D" id="Curve2D_odbmb"]
+_data = {
+"points": PackedVector2Array(-1398.49, -101.708, 1398.49, 101.708, 6052, 1943, -669.581, -144.087, 669.581, 144.087, 11281, 2070, -211.893, -355.98, 211.893, 355.98, 13358, 3587, 322.077, -372.931, -322.077, 372.931, 13434, 4943, 372.931, -457.688, -372.931, 457.688, 9857, 5384, 288.174, -423.785, -288.174, 423.785, 9857, 7172, 0, 0, 0, 0, 6619, 7689, 567.872, 279.698, -567.872, -279.698, 4043, 7520, 177.99, 449.212, -177.99, -449.212, 4204, 3850, -703.483, 415.31, 703.483, -415.31, 4204, 2011, 0, 0, 0, 0, 6052, 1943)
+}
+point_count = 11
 
 [node name="Outside" instance=ExtResource("1_mkegl")]
 script = ExtResource("2_fhn85")
@@ -78,17 +85,29 @@ position = Vector2(1429, 246)
 [node name="Box2" parent="Containers" index="2" groups=["Container"] instance=ExtResource("10_ilttc")]
 position = Vector2(10804, 3008)
 
-[node name="Box3" parent="Containers" index="3" groups=["Container"] instance=ExtResource("10_ilttc")]
+[node name="Box6" parent="Containers" index="3" groups=["Container"] instance=ExtResource("10_ilttc")]
+position = Vector2(12698, 1972)
+rotation = 1.57079
+
+[node name="Box3" parent="Containers" index="4" groups=["Container"] instance=ExtResource("10_ilttc")]
 position = Vector2(6041, 5364)
 
-[node name="Box4" parent="Containers" index="4" groups=["Container"] instance=ExtResource("10_ilttc")]
+[node name="Box4" parent="Containers" index="5" groups=["Container"] instance=ExtResource("10_ilttc")]
 position = Vector2(14048, 237)
 
-[node name="Box5" parent="Containers" index="5" groups=["Container"] instance=ExtResource("10_ilttc")]
+[node name="Box5" parent="Containers" index="6" groups=["Container"] instance=ExtResource("10_ilttc")]
 position = Vector2(12490, 6192)
 rotation = 1.57079
 
 [node name="Player" parent="." index="10" instance=ExtResource("9_gnut1")]
-position = Vector2(15031, 1354)
+position = Vector2(4091, 3341)
 rotation = 3.14159
 MaxSpeed = 1000.0
+
+[node name="Path2D" type="Path2D" parent="." index="14"]
+curve = SubResource("Curve2D_odbmb")
+
+[node name="Car" parent="Path2D" index="0" instance=ExtResource("14_la12e")]
+position = Vector2(3916.41, 6154.71)
+rotation = -1.43622
+progress = 22123.7

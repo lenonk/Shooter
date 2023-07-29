@@ -12,22 +12,27 @@ public partial class Enemy : CharacterBody2D
 	protected float RangeThreshold = 100;
 	protected float TurnSpeed = 15;
 	
-	private double _curSpeed = 0.0f;
-	
+	protected double _curSpeed = 0.0f;
 	protected int _health = 10;
 	protected bool _dead = false;
+	protected Vector2 _lockedDir;
 
-	public override void _Process(double delta)
-	{
-		if (_target == null || _dead) return;
+	public override void _Process(double delta) {
+		if (_target == null) return;
+		CalculateMovement(delta);
+		MoveAndSlide();
+	}
 
+	protected virtual void CalculateMovement(double delta) {
 		var dir = (_target.Position - Position).Normalized();
+		if (_dead) dir = _lockedDir;
+		else _lockedDir = dir;
 
 		// Turn toward the player
 		Rotation = (float)Mathf.MoveToward(Rotation, dir.Angle(), TurnSpeed * delta);
 		
 		// Stop moving if too close
-		if (Math.Abs(Position.DistanceTo(_target.Position) - DesiredRange) < RangeThreshold) {
+		if (_dead || Math.Abs(Position.DistanceTo(_target.Position) - DesiredRange) < RangeThreshold) {
 			_curSpeed = Mathf.MoveToward(_curSpeed, 0, Acceleration * delta);
 		} 
 		else if (Position.DistanceTo(_target.Position) < DesiredRange) {
@@ -41,16 +46,23 @@ public partial class Enemy : CharacterBody2D
 		velocity.X = dir.X * (float)_curSpeed;
 		velocity.Y = dir.Y * (float)_curSpeed;
 		Velocity = velocity;
-		MoveAndSlide();
 	}
-
+	
 	private async Task PlayDeathAnimation() {
-		var p = GetNode<GpuParticles2D>("Particles/HitParticles");
-		if (p == null) return;
-
-		p.Emitting = true;
-		var t = GetTree().CreateTimer(0.5);
-		await ToSignal(t, "timeout");
+		if (GetNode<GpuParticles2D>("Particles/HitParticles") != null) {
+			var p = GetNode<GpuParticles2D>("Particles/HitParticles"); 
+			p.Emitting = true;
+			var t = GetTree().CreateTimer(0.5);
+			await ToSignal(t, "timeout");
+		}
+		
+		if (GetNode<AnimationPlayer>("AnimationPlayer") != null) {
+			var p = GetNode<AnimationPlayer>("AnimationPlayer");
+			if (p.HasAnimation("death")) {
+				p.Play("death");
+				await ToSignal(p, "animation_finished");
+			}
+		}
 	}
 	
 	public async virtual void Hit(int damage) {

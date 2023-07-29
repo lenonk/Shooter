@@ -11,6 +11,7 @@
 radius = 1599.05
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g7i7p"]
+resource_local_to_scene = true
 shader = ExtResource("3_np4w1")
 shader_parameter/color = Color(1, 0, 0, 1)
 shader_parameter/progress = 0.0

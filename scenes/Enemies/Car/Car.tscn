@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6os83t26yogx"]
+
+[ext_resource type="Texture2D" uid="uid://nbkd3ilv5os6" path="res://graphics/car/main.png" id="1_5nmvg"]
+[ext_resource type="Script" path="res://scenes/Enemies/Car/Car.cs" id="1_luef2"]
+[ext_resource type="Texture2D" uid="uid://dqbv7nowtp6i3" path="res://graphics/car/turret.png" id="2_7ef2x"]
+[ext_resource type="Texture2D" uid="uid://c2px225roq1hh" path="res://graphics/explosions/gun.png" id="4_rvmbw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xmhr4"]
+radius = 1760.03
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jb325"]
+size = Vector2(496, 368)
+
+[sub_resource type="Animation" id="Animation_xyqis"]
+resource_name = "fire_weapon"
+length = 2.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Turret/TurretImage/LeftLine:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2, 2.5, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 5.0, 10.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Turret/TurretImage/RightLine:width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2, 2.5, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 5.0, 10.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2lck6"]
+_data = {
+"fire_weapon": SubResource("Animation_xyqis")
+}
+
+[node name="Car" type="PathFollow2D"]
+script = ExtResource("1_luef2")
+
+[node name="Body" type="CharacterBody2D" parent="."]
+collision_layer = 2
+collision_mask = 15
+
+[node name="AttackArea" type="Area2D" parent="Body"]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/AttackArea"]
+visible = false
+shape = SubResource("CircleShape2D_xmhr4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+visible = false
+shape = SubResource("RectangleShape2D_jb325")
+
+[node name="BodyImage" type="Sprite2D" parent="Body"]
+position = Vector2(58, 1)
+rotation = 1.5708
+texture = ExtResource("1_5nmvg")
+
+[node name="Turret" type="Node2D" parent="Body"]
+
+[node name="TurretImage" type="Sprite2D" parent="Body/Turret"]
+rotation = 1.5708
+texture = ExtResource("2_7ef2x")
+
+[node name="LeftRay" type="RayCast2D" parent="Body/Turret/TurretImage"]
+position = Vector2(29, -114)
+rotation = 3.14159
+target_position = Vector2(0, 1650)
+
+[node name="RightRay" type="RayCast2D" parent="Body/Turret/TurretImage"]
+position = Vector2(-27, -114)
+rotation = 3.14159
+target_position = Vector2(0, 1650)
+
+[node name="LeftLine" type="Line2D" parent="Body/Turret/TurretImage"]
+rotation = -1.5708
+points = PackedVector2Array(114, -27, 1756, -27)
+width = 0.0
+default_color = Color(0.94902, 0.423529, 0.784314, 0.686275)
+
+[node name="RightLine" type="Line2D" parent="Body/Turret/TurretImage"]
+rotation = -1.5708
+points = PackedVector2Array(114, 29, 1756, 29)
+width = 0.0
+default_color = Color(0.94902, 0.423529, 0.784314, 0.686275)
+
+[node name="LeftMuzzleFlash" type="Sprite2D" parent="Body/Turret/TurretImage"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-27, -181)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_rvmbw")
+
+[node name="RightMuzzleFlash" type="Sprite2D" parent="Body/Turret/TurretImage"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(28, -181)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_rvmbw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
+libraries = {
+"": SubResource("AnimationLibrary_2lck6")
+}
+
+[connection signal="body_entered" from="Body/AttackArea" to="." method="OnAttackAreaEntered"]
+[connection signal="body_exited" from="Body/AttackArea" to="." method="OnAttackAreaExited"]

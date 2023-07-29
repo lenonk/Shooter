@@ -41,6 +41,7 @@ public partial class Bug : Enemy {
 			GetNode<AnimatedSprite2D>("AnimatedEnemyImage").Stop();
 		base.Hit(damage);
 	}
+	
 	private void Attack() {
 		_canAttack = false;
 		GetNode<AnimatedSprite2D>("AnimatedEnemyImage").Play("bite");

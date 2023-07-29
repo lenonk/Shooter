@@ -14,7 +14,7 @@ public partial class Scout : Enemy {
 	public override void _Process(double delta) {
 		base._Process(delta);	
 		if (_target == null) return;
-		if (_canLaser) FireLaser();
+		if (_canLaser && !_dead) FireLaser();
 	}
 
 	private void FireLaser() {
