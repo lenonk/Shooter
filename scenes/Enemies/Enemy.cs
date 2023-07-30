@@ -17,14 +17,33 @@ public partial class Enemy : CharacterBody2D
 	protected bool _dead = false;
 	protected Vector2 _lockedDir;
 
+	private NavigationAgent2D _navAgent;
+	private Vector2 _nextPathPos;
+
+	public override void _Ready() {
+		_navAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
+	}
+	
 	public override void _Process(double delta) {
 		if (_target == null) return;
 		CalculateMovement(delta);
 		MoveAndSlide();
 	}
 
+	public override void _PhysicsProcess(double delta) {
+		if (!_dead && _target != null) {
+			if (_navAgent == null) {
+				_nextPathPos = _target.GlobalPosition;
+			}
+			else {
+				_navAgent.TargetPosition = _target.Position;
+				_nextPathPos = _navAgent.GetNextPathPosition();
+			}
+		}
+	}
+	
 	protected virtual void CalculateMovement(double delta) {
-		var dir = (_target.Position - Position).Normalized();
+		var dir = (_nextPathPos - GlobalPosition).Normalized();
 		if (_dead) dir = _lockedDir;
 		else _lockedDir = dir;
 

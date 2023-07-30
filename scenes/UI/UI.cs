@@ -25,6 +25,16 @@ public partial class UI : CanvasLayer {
 		OnStatsChanged(); // For initial setting
 	}
 
+	public override void _ExitTree() {
+		base._ExitTree();
+		// Note: This is necessary because on scene change, UI is destroyed and
+		// recreated, which leaves a stale event handler in Globals.PlayerStatsChanged.
+		// OnStatsChanged() will be called multiple times, and the private variables
+		// above will will have been disposed in at least one of the event handlers,
+		// causing and exception.
+		Globals.Get().PlayerStatsChanged -= OnStatsChanged;
+	}
+	
 	private void OnStatsChanged() {
 		UpdateLaserText();	
 		UpdateGrenadeText();

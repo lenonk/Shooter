@@ -8,6 +8,7 @@ public partial class Scout : Enemy {
 	private int _nextLaser = 0;
 
 	public override void _Ready() {
+		base._Ready();
 		_health = 15;
 	}
 	

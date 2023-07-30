@@ -4,11 +4,14 @@ using System.Threading.Tasks;
 
 public partial class Bug : Enemy {
 	[Export] public int DamagePerAttack = 10;
-	
+
 	private bool _canAttack = true;
 	private bool _stopped = false;
 	
 	public override void _Ready() {
+		base._Ready();
+		
+		
 		_health = 40;
 		MaxSpeed = 500;
 		Acceleration = 1700.0f;
@@ -62,5 +65,8 @@ public partial class Bug : Enemy {
 
 	private void OnAttackCooldownExpired() => _canAttack = true;
 	private void OnBugAttackAreaEntered(Node2D body) => _target = body as Player;
-	private void OnBugAttackAreaExited(Node2D body) => _target = null;
+	private void OnBugAttackAreaExited(Node2D body) {
+		_target = null;
+		GetNode<AnimatedSprite2D>("AnimatedEnemyImage").Stop();
+	}
 }

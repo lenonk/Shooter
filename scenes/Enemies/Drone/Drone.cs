@@ -8,6 +8,8 @@ public partial class Drone : Enemy {
 	[Export] public int BlastRadius = 400;
 	
 	public override void _Ready() {
+		base._Ready();
+		
 		MaxSpeed = 2000.0f;
 		Acceleration = 600.0f;
 		DesiredRange = 150;

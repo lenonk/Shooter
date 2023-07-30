@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://32utaafc6ksu"]
+[gd_scene load_steps=9 format=3 uid="uid://32utaafc6ksu"]
 
 [ext_resource type="Texture2D" uid="uid://brtw8wpqr76lr" path="res://graphics/player/player.png" id="1_5mty4"]
 [ext_resource type="Script" path="res://scenes/Player/Player.cs" id="1_ghnx5"]
@@ -6,10 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://chni5vhadpxel" path="res://graphics/lights/textures/circle.png" id="4_opcbc"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wimxs"]
-polygon = PackedVector2Array(-55, -24, -52, -39, -40, -47, -32, -48, -26, -52, -15, -57, -8, -58, 10, -58, 25, -62, 34, -48, 43, -41, 42, -38, 48, -32, 58, -26, 74, -11, 84, -12, 96, -7, 108, -4, 112, 3, 126, 2, 132, 11, 132, 30, 123, 36, 119, 39, 111, 38, 105, 37, 99, 43, 95, 45, 94, 53, 60, 52, 57, 44, 41, 42, 41, 42, -17, 62, -32, 57, -39, 47, -41, 43, -44, 37, -46, 34, -53, 30, -56, 24, -55, 20, -54, 16, -64, 2, -62, -7, -60, -21)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_lrqdd"]
-radius = 65.0
+polygon = PackedVector2Array(-55, -24, -52, -39, -40, -47, -32, -48, -26, -52, -15, -57, -8, -58, 10, -58, 24.8362, -59.1284, 34, -48, 43, -41, 42, -38, 48, -32, 49.7531, -27.2513, 58, -26, 74, -11, 80.5152, -8.44449, 85.0515, -10.5473, 96.7278, -2.9537, 107.695, -1.64481, 112, 3, 124.116, 2.86783, 124.055, 7.96648, 129.153, 8.02789, 132, 11, 134.483, 21.429, 131.218, 31.9807, 128.638, 34.4993, 123, 36, 119, 39, 111, 38, 106.226, 38.9365, 102.044, 44.1816, 96.5295, 46.0765, 94.8663, 53.9017, 60.1539, 53.6797, 57, 44, 41, 42, 41, 42, 23.1308, 49.8996, 15.0363, 54.3131, 3.23707, 56.9168, -17, 62, -32, 57, -39, 47, -41, 43, -44, 37, -46, 34, -49.6066, 31.3718, -52.4796, 25.6494, -53.6043, 21.321, -52.7726, 17.4084, -61.8075, 2.19751, -61.1224, -5.83558, -60, -21)
 
 [sub_resource type="Gradient" id="Gradient_a5djs"]
 colors = PackedColorArray(0.156863, 0.760784, 1, 0.909804, 0.643137, 0.878431, 1, 0.611765)
@@ -40,10 +37,12 @@ texture = ExtResource("4_opcbc")
 texture_scale = 3.0
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(-1, 6)
+rotation = -0.20944
 occluder = SubResource("OccluderPolygon2D_wimxs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_lrqdd")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-50, -29, -41, -32, -37, -37, -31, -43, -26, -45, -22, -45, -13, -50, -5, -50, -1, -50, 8, -55, 16, -54, 23, -47, 25, -41, 28, -36, 29, -31, 25, -23, 19, -16, 15, -12, 13, -10, 17, -5, 17, 0, 17, 6, 17, 11, 16, 17, 12, 23, 11, 29, 13, 34, 13, 39, 10, 45, 10, 52, 6, 59, 3, 65, -7, 69, -16, 69, -23, 65, -26, 60, -34, 52, -37, 46, -42, 45, -47, 40, -46, 35, -50, 32, -57, 25, -61, 11, -63, -2, -59, -11, -56, -23)
 
 [node name="PlayerImage" type="Sprite2D" parent="."]
 position = Vector2(35, 0)
@@ -61,16 +60,16 @@ one_shot = true
 [node name="LaserStartPosition" type="Node2D" parent="."]
 
 [node name="CenterMarker" type="Marker2D" parent="LaserStartPosition"]
-position = Vector2(138, -5)
+position = Vector2(137, -4)
 
 [node name="LeftMarker" type="Marker2D" parent="LaserStartPosition"]
-position = Vector2(134, -8)
+position = Vector2(133, -10)
 
 [node name="RightMarker" type="Marker2D" parent="LaserStartPosition"]
-position = Vector2(136, 0)
+position = Vector2(136, 6)
 
 [node name="LaserParticleEmitter" type="GPUParticles2D" parent="."]
-position = Vector2(143, -6)
+position = Vector2(139, -3)
 emitting = false
 amount = 150
 process_material = SubResource("ParticleProcessMaterial_enedw")

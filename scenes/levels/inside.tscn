@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://br63x13xfg0tm"]
+[gd_scene load_steps=10 format=3 uid="uid://br63x13xfg0tm"]
 
 [ext_resource type="PackedScene" uid="uid://bsftvxjks1fs3" path="res://scenes/levels/level.tscn" id="1_c36od"]
 [ext_resource type="Script" path="res://scenes/levels/inside.cs" id="2_1w3ib"]
@@ -10,6 +10,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfv6f"]
 size = Vector2(11.775, 2315.53)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfdfe"]
+size = Vector2(37, 1252)
 
 [node name="Inside" instance=ExtResource("1_c36od")]
 script = ExtResource("2_1w3ib")
@@ -131,5 +134,14 @@ scale = Vector2(1.92, 1.776)
 [node name="LightFanAnimation5" parent="Lights" index="4" instance=ExtResource("6_iit32")]
 position = Vector2(3100, 5943)
 scale = Vector2(1.92, 1.776)
+
+[node name="Barrier" type="Area2D" parent="." index="10"]
+position = Vector2(12469, -391)
+collision_layer = 16
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier" index="0"]
+position = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_pfdfe")
 
 [connection signal="body_entered" from="ExitGateArea" to="." method="OnExitGateEntered"]

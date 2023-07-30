@@ -88,12 +88,14 @@ rotation = -1.5708
 points = PackedVector2Array(114, -27, 1756, -27)
 width = 0.0
 default_color = Color(0.94902, 0.423529, 0.784314, 0.686275)
+antialiased = true
 
 [node name="RightLine" type="Line2D" parent="Body/Turret/TurretImage"]
 rotation = -1.5708
 points = PackedVector2Array(114, 29, 1756, 29)
 width = 0.0
 default_color = Color(0.94902, 0.423529, 0.784314, 0.686275)
+antialiased = true
 
 [node name="LeftMuzzleFlash" type="Sprite2D" parent="Body/Turret/TurretImage"]
 modulate = Color(1, 1, 1, 0)
