@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b33ioqry4kule"]
+[gd_scene load_steps=18 format=3 uid="uid://b33ioqry4kule"]
 
 [ext_resource type="PackedScene" uid="uid://bsftvxjks1fs3" path="res://scenes/levels/level.tscn" id="1_mkegl"]
 [ext_resource type="PackedScene" uid="uid://dy425k14wbge3" path="res://scenes/objects/SteamVent.tscn" id="2_5bb4g"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b5bjcw5uslaad" path="res://scenes/objects/Toilet.tscn" id="11_qtbdl"]
 [ext_resource type="PackedScene" uid="uid://due76awe46i35" path="res://scenes/Enemies/Scout/Scout.tscn" id="12_rl4mi"]
 [ext_resource type="PackedScene" uid="uid://c6os83t26yogx" path="res://scenes/Enemies/Car/Car.tscn" id="14_la12e"]
+[ext_resource type="PackedScene" uid="uid://o64cb0sfbo8r" path="res://scenes/Enemies/Hunter/Hunter.tscn" id="15_idl68"]
 
 [sub_resource type="Curve2D" id="Curve2D_odbmb"]
 _data = {
@@ -119,3 +120,6 @@ progress = 22123.7
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." index="15"]
 navigation_polygon = SubResource("NavigationPolygon_xdmyp")
+
+[node name="Hunter" parent="NavigationRegion2D" index="0" instance=ExtResource("15_idl68")]
+position = Vector2(3416, 1943)

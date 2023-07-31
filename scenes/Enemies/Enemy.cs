@@ -49,6 +49,9 @@ public partial class Enemy : CharacterBody2D
 
 		// Turn toward the player
 		Rotation = (float)Mathf.MoveToward(Rotation, dir.Angle(), TurnSpeed * delta);
+
+		if (this is Hunter)
+			Rotation = (float)Mathf.MoveToward(Rotation, dir.Angle() + Math.PI / 2, TurnSpeed * delta);
 		
 		// Stop moving if too close
 		if (_dead || Math.Abs(Position.DistanceTo(_target.Position) - DesiredRange) < RangeThreshold) {

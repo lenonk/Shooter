@@ -38,33 +38,33 @@ public partial class Car : PathFollow2D {
 
 	public override void _Process(double delta) {
 		ProgressRatio += (float)(0.02 * delta);
+
+		if (_target == null) return;
 		
-		if (_target != null) {
-			var dir = (_target.Position - _turret.GlobalPosition).Normalized();
-			var _rotAngle = dir.Angle() + Mathf.DegToRad(90) - Rotation;
-			_turret.Rotation = (float)Mathf.MoveToward(_turret.Rotation, _rotAngle, TurnSpeed * delta);
+		var dir = (_target.Position - _turret.GlobalPosition).Normalized();
+		var _rotAngle = dir.Angle() + Mathf.DegToRad(90) - Rotation;
+		_turret.Rotation = (float)Mathf.MoveToward(_turret.Rotation, _rotAngle, TurnSpeed * delta);
 
-			// This doesn't work the way I want it too.  Not sure why.  It's close, but the 
-			// beams sometimes pass through the player, and sometimes stop short.
-			_leftRay.ForceRaycastUpdate();
-			if (_leftRay.IsColliding()) {
-				var colPoint = _turret.ToLocal(_leftRay.GetCollisionPoint());
-				var newPoint = new Vector2(_leftLine.Points[0].DistanceTo(colPoint), _leftLine.Points[1].Y);
-				_leftLine.RemovePoint(1);
-				_leftLine.AddPoint(newPoint);
-			}
-
-			_rightRay.ForceRaycastUpdate();
-			if (_rightRay.IsColliding()) {
-				var colPoint = _turret.ToLocal(_rightRay.GetCollisionPoint());
-				var newPoint = new Vector2(_rightLine.Points[0].DistanceTo(colPoint), _rightLine.Points[1].Y);
-				_rightLine.RemovePoint(1);
-				_rightLine.AddPoint(newPoint);
-			}
-
-			if (!_player.IsPlaying())
-				_player.Play("fire_weapon");	
+		// This doesn't work the way I want it to.  Not sure why.  It's close, but the 
+		// beams sometimes pass through the player, and sometimes stop short.
+		_leftRay.ForceRaycastUpdate();
+		if (_leftRay.IsColliding()) {
+			var colPoint = _turret.ToLocal(_leftRay.GetCollisionPoint());
+			var newPoint = new Vector2(_leftLine.Points[0].DistanceTo(colPoint), _leftLine.Points[1].Y);
+			_leftLine.RemovePoint(1);
+			_leftLine.AddPoint(newPoint);
 		}
+
+		_rightRay.ForceRaycastUpdate();
+		if (_rightRay.IsColliding()) {
+			var colPoint = _turret.ToLocal(_rightRay.GetCollisionPoint());
+			var newPoint = new Vector2(_rightLine.Points[0].DistanceTo(colPoint), _rightLine.Points[1].Y);
+			_rightLine.RemovePoint(1);
+			_rightLine.AddPoint(newPoint);
+		}
+
+		if (!_player.IsPlaying())
+			_player.Play("fire_weapon");
 	}
 
 	private void OnFireAnimationFinished(StringName name) {

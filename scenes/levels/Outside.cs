@@ -17,13 +17,13 @@ public partial class Outside : ParentLevel
 	}
 		
 	private void OnHouseEntered() {
-		var cam = base._player.GetCamera();
+		var cam = _player.GetCamera();
 		var t = CreateTween();
 		t.TweenProperty(cam, "zoom", new Vector2(0.6F, 0.6F), 1).SetTrans(Tween.TransitionType.Quad);
 	}
 	
 	private void OnHouseExited() {
-		var cam = base._player.GetCamera();
+		var cam = _player.GetCamera();
 		var t = CreateTween();
 		t.TweenProperty(cam, "zoom", new Vector2(0.4F, 0.4F), 1).SetTrans(Tween.TransitionType.Quad);
 	}
